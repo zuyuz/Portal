@@ -1,0 +1,13 @@
+<p>
+  youtube-service works!
+</p>
+<input type="text" name="lastname">
+<button  style="height:50px;width:50px" (click)="onClick()"></button>
+
+<youtube-player
+      [videoId]="id"
+      [height]="height"
+      [width]="width"
+      (ready)="savePlayer($event)"
+      (change)="onStateChange($event)">
+    </youtube-player>
