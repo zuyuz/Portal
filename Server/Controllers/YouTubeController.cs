@@ -2,17 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreSpa.Server.Entities;
 using AspNetCoreSpa.Server.Services;
 using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 
 namespace AspNetCoreSpa.Server.Controllers
 {
     [Route("api/youtube")]
     public class YouTubeController : Controller
     {
+        ApplicationDbContext _applicationDbContext;
+        private readonly IOptions<RequestLocalizationOptions> _locOptions;
+        private readonly IHttpContextAccessor _context;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IStringLocalizer<ApplicationDataService> _stringLocalizer;
+        private readonly IMemoryCache _cache;
+        public YouTubeController(ApplicationDbContext applicationDbContext,
+        IOptions<RequestLocalizationOptions> locOptions,
+            IHttpContextAccessor context,
+            SignInManager<ApplicationUser> signInManager,
+            IStringLocalizer<ApplicationDataService> stringLocalizer,
+            IMemoryCache memoryCache)
+        {
+            _locOptions = locOptions;
+            _context = context;
+            _signInManager = signInManager;
+            _stringLocalizer = stringLocalizer;
+            _cache = memoryCache;
+            _applicationDbContext = applicationDbContext;
+        }
 
         [HttpGet(template: "search")]
         public async Task<ActionResult> Search(string searchText = "Silicon valley", int count = 10)

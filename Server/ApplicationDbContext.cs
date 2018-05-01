@@ -11,6 +11,8 @@ namespace AspNetCoreSpa.Server
         public DbSet<ApplicationRole> ApplicationRoles { get; set; }
         public DbSet<Culture> Cultures { get; set; }
         public DbSet<Resource> Resources { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Post> Posts { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }

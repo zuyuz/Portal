@@ -1,4 +1,3 @@
-import { ObservableComponent } from './observable/observable.component';
 import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,8 +24,7 @@ export function appServiceFactory(appService: AppService): Function {
     // Components
     AppComponent,
     HomeComponent,
-    YoutubeServiceComponent,
-    ObservableComponent
+    YoutubeServiceComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -38,7 +36,6 @@ export function appServiceFactory(appService: AppService): Function {
     OAuthModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full', data: { state: 'home' } },
-      { path: 'observable', component: ObservableComponent, pathMatch: 'full', data: { state: 'observable'}},
       { path: 'YoutubeService', component: YoutubeServiceComponent, pathMatch: 'full', data: { state: 'YoutubeService' } },
       { path: 'login', loadChildren: './account/+login/login.module#LoginModule' },
       { path: 'register', loadChildren: './account/+register/register.module#RegisterModule' },

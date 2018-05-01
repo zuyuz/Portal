@@ -22,6 +22,7 @@ namespace AspNetCoreSpa.Server.Services
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IStringLocalizer<ApplicationDataService> _stringLocalizer;
         private readonly IMemoryCache _cache;
+        
         public ApplicationDataService(
             IOptions<RequestLocalizationOptions> locOptions,
             IHttpContextAccessor context,
