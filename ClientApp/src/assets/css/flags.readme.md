@@ -20,9 +20,8 @@ Include CSS file in your HTML code then insert a transparent 1x1 pixel image wit
 
 ## Included flags
 
-
-* France (fr)
-* United Kingdom (gb)
+* 
+* Ukraine (ua)
 * United States (us)
 
 ## Links

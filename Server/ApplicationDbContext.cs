@@ -1,4 +1,5 @@
 ﻿using AspNetCoreSpa.Server.Entities;
+using AspNetCoreSpa_master.Server.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +14,7 @@ namespace AspNetCoreSpa.Server
         public DbSet<Resource> Resources { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Post> Posts { get; set; }
-
+        public DbSet<YoutubeFavorite> YoutubeFavorites { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
 

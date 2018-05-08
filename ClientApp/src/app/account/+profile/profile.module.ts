@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { YoutubePlayerModule } from 'ngx-youtube-player';
 
 import { ProfileComponent } from './profile.component';
 import { ProfileService } from './profile.service';
@@ -12,10 +13,12 @@ import { EnableAuthenticatorComponent } from './two-factor-auth/enable-authentic
 import { ResetAuthenticatorComponent } from './two-factor-auth/reset-authenticator/reset-authenticator.component';
 import { RecoveryCodesComponent } from './two-factor-auth/recovery-codes/recovery-codes.component';
 import { SharedModule } from '../../shared/shared.module';
+import { FavoriteComponent } from './favorite/favorite.component';
 
 @NgModule({
     imports: [
         SharedModule,
+        YoutubePlayerModule,
         RouterModule.forChild([
             {
                 path: '', component: ProfileComponent, children: [
@@ -24,7 +27,8 @@ import { SharedModule } from '../../shared/shared.module';
                     { path: 'updatepassword', component: UpdatePasswordComponent },
                     { path: 'userphoto', component: UserPhotoComponent },
                     { path: 'otheraccounts', component: OtherAccountsComponent },
-                    { path: 'twofactorauth', component: TwoFactorAuthComponent }
+                    { path: 'twofactorauth', component: TwoFactorAuthComponent },
+                    { path: 'favorite', component: FavoriteComponent }
                 ]
             },
         ])
@@ -39,6 +43,7 @@ import { SharedModule } from '../../shared/shared.module';
         EnableAuthenticatorComponent,
         ResetAuthenticatorComponent,
         RecoveryCodesComponent,
+        FavoriteComponent,
     ],
     providers: [ProfileService]
 })

@@ -262,7 +262,7 @@ namespace AspNetCoreSpa.Server.Extensions
                     var supportedCultures = new List<CultureInfo>
                     {
                                 new CultureInfo("en-US"),
-                                new CultureInfo("fr-FR")
+                                new CultureInfo("ua-UA")
                     };
 
                     opts.DefaultRequestCulture = new RequestCulture("en-US");

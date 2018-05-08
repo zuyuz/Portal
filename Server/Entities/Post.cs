@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AspNetCoreSpa.Server.Entities
 {
     public class Post : IEntityBase
     {
+        [Key]
         public int Id
         { get; set; }
 
@@ -33,9 +36,6 @@ namespace AspNetCoreSpa.Server.Entities
         { get; set; }
 
         public Category Category
-        { get; set; }
-
-        public IList<Tag> Tags
         { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 {
   "index": "/index.html",
   "appData": {
-    "name": "AspNetCoreSpa",
-    "description": "AspNetCoreSpa single page application"
+    "name": "BookPortal",
+    "description": "BookPortal single page application"
   },
   "assetGroups": [
     {

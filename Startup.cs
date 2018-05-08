@@ -61,7 +61,7 @@ namespace AspNetCoreSpa
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "AspNetCoreSpa", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "BookPortal", Version = "v1" });
             });
         }
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationDataService appService)

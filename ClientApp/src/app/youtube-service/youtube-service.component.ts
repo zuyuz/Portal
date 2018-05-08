@@ -1,6 +1,7 @@
 import { YoutubeViewModel, Video } from './youtubeViewModel';
 import { Component, OnInit, Input, OnChanges, SimpleChanges, SimpleChange } from '@angular/core';
 import { DataService } from '../core/services/data.service';
+import { AccountService } from '../core/services/account.service';
 
 @Component({
   selector: 'appc-youtube-service',
@@ -8,6 +9,7 @@ import { DataService } from '../core/services/data.service';
   styleUrls: ['./youtube-service.component.scss']
 })
 export class YoutubeServiceComponent implements OnChanges, OnInit {
+  favoriteValue: boolean;
   @Input() searchValue = '';
   @Input() youtubeId = 'Lt6PPiTTwbE';
   player: YT.Player;
@@ -19,7 +21,8 @@ export class YoutubeServiceComponent implements OnChanges, OnInit {
 
   index = 0;
   constructor(
-    private dataService: DataService
+    private dataService: DataService,
+    private accountService: AccountService
   ) {
   }
   ngOnChanges(changes: SimpleChanges) {
@@ -29,6 +32,12 @@ export class YoutubeServiceComponent implements OnChanges, OnInit {
     this.youtubeId = name.currentValue.toUpperCase();
   }
   ngOnInit() {
+    this.width = document.getElementById('mydiv').offsetWidth;
+  }
+  onFavoriteSelected(event) {
+    this.favoriteValue = !this.favoriteValue;
+
+    this.postData();
   }
   onSearchChange(searchValue: string ) {
     this.searchValue = searchValue;
@@ -57,7 +66,16 @@ export class YoutubeServiceComponent implements OnChanges, OnInit {
     this.dataService.get('api/youtube/search?searchText=' + this.searchValue).subscribe((searchResult) => {
       this.searchResult = searchResult as YoutubeViewModel;
       this.videos = this.searchResult.videos;
+      console.log(this.accountService.isLoggedIn);
+      console.log(this.searchResult);
     });
-    console.log(this.searchResult);
   }
+  postData() {
+    this.dataService.post('api/youtube/like?id=' + this.youtubeId + '&' + 'isFavorite=' + this.favoriteValue).subscribe((searchResult) => {
+    });
+  }
+  isLoggedIn() {
+    console.log(this.accountService.isLoggedIn);
+    return this.accountService.isLoggedIn;
+}
 }

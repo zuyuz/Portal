@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCoreSpa.Server.Controllers
 {
@@ -49,6 +50,67 @@ namespace AspNetCoreSpa.Server.Controllers
                 var searchResult = await service.Search(searchText, count);
 
                 return Ok(searchResult);
+            }
+            catch (AggregateException ex)
+            {
+                foreach (var e in ex.InnerExceptions)
+                {
+                    Console.WriteLine("Error: " + e.Message);
+                }
+                
+                return BadRequest();
+            }
+        }
+        [HttpPost(template: "like")]
+        public async Task<ActionResult> Like(string id, bool isFavorite){
+        
+            try
+            {
+                var user = await _signInManager.UserManager.GetUserAsync(HttpContext.User);
+
+                var favor = _applicationDbContext
+                    .YoutubeFavorites
+                    .FirstOrDefault(yf => yf.UserEmail == user.Email && yf.VideoId == id);
+
+                if (favor != null || !isFavorite)
+                {
+                    _applicationDbContext
+                        .YoutubeFavorites
+                        .Remove(favor);
+                }
+                else
+                {
+                    _applicationDbContext.YoutubeFavorites.Add(new YoutubeFavorite(){
+                        VideoId = id,
+                        UserEmail = user.Email
+                    });
+                }
+                _applicationDbContext.SaveChanges();
+                return Ok(_applicationDbContext.YoutubeFavorites.ToList());
+            }
+            catch (AggregateException ex)
+            { 
+                foreach (var e in ex.InnerExceptions)
+                {
+                    Console.WriteLine("Error: " + e.Message);
+                }
+                
+                return BadRequest();
+            }
+        }
+
+        [HttpGet(template: "userfavorite")]
+        public async Task<ActionResult> GetCurrentUserFavorite()
+        {
+            try
+            {
+                var user = await _signInManager.UserManager.GetUserAsync(HttpContext.User);
+
+                var favorites = _applicationDbContext
+                    .YoutubeFavorites
+                    .Where(yf => yf.UserEmail == user.Email);
+
+                return Ok(favorites);
             }
             catch (AggregateException ex)
             {

@@ -1,25 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AspNetCoreSpa.Server.Entities
 {
     public class Book : IEntityBase
     {
-        public Book() { }
-
-        public Book(string path)
-        {
-            Id = 0;
-            Title = "NewTitle";
-            Author = "NewAuthor";
-            Country = "Ukraine";
-            Language = "UKR";
-            Genre = "NewGenre";
-            Publisher = "NewPublisher";
-            Published = DateTime.Now;
-            PathToFile = path;
-        }
-
-        
+        [Key]
         public int Id { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
@@ -28,6 +14,5 @@ namespace AspNetCoreSpa.Server.Entities
         public string Genre { get; set; }
         public string Publisher { get; set; }
         public DateTime Published { get; set; }
-        public string PathToFile { get; set; }
     }
 }

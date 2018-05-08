@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace AspNetCoreSpa.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -55,6 +55,40 @@ namespace AspNetCoreSpa.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Books",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Author = table.Column<string>(nullable: true),
+                    Country = table.Column<string>(nullable: true),
+                    Genre = table.Column<string>(nullable: true),
+                    Language = table.Column<string>(nullable: true),
+                    Published = table.Column<DateTime>(nullable: false),
+                    Publisher = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Books", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Category",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Description = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    UrlSlug = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Category", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cultures",
                 columns: table => new
                 {
@@ -100,6 +134,20 @@ namespace AspNetCoreSpa.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OpenIddictScopes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "YoutubeFavorites",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserEmail = table.Column<string>(nullable: true),
+                    VideoId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_YoutubeFavorites", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -227,6 +275,33 @@ namespace AspNetCoreSpa.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Posts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CategoryId = table.Column<int>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Meta = table.Column<string>(nullable: true),
+                    Modified = table.Column<DateTime>(nullable: true),
+                    PostedOn = table.Column<DateTime>(nullable: false),
+                    Published = table.Column<bool>(nullable: false),
+                    ShortDescription = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    UrlSlug = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Posts_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -379,6 +454,11 @@ namespace AspNetCoreSpa.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Posts_CategoryId",
+                table: "Posts",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Resources_CultureId",
                 table: "Resources",
                 column: "CultureId");
@@ -405,13 +485,22 @@ namespace AspNetCoreSpa.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Books");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictTokens");
 
             migrationBuilder.DropTable(
+                name: "Posts");
+
+            migrationBuilder.DropTable(
                 name: "Resources");
+
+            migrationBuilder.DropTable(
+                name: "YoutubeFavorites");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -421,6 +510,9 @@ namespace AspNetCoreSpa.Migrations
 
             migrationBuilder.DropTable(
                 name: "OpenIddictAuthorizations");
+
+            migrationBuilder.DropTable(
+                name: "Category");
 
             migrationBuilder.DropTable(
                 name: "Cultures");

@@ -11,8 +11,8 @@ using System;
 namespace AspNetCoreSpa.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180202232600_Initial")]
-    partial class Initial
+    [Migration("20180506170341_initialMigration")]
+    partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -125,6 +125,46 @@ namespace AspNetCoreSpa.Migrations
                     b.ToTable("ApplicationUserPhotos");
                 });
 
+            modelBuilder.Entity("AspNetCoreSpa.Server.Entities.Book", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Author");
+
+                    b.Property<string>("Country");
+
+                    b.Property<string>("Genre");
+
+                    b.Property<string>("Language");
+
+                    b.Property<DateTime>("Published");
+
+                    b.Property<string>("Publisher");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("AspNetCoreSpa.Server.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("UrlSlug");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Category");
+                });
+
             modelBuilder.Entity("AspNetCoreSpa.Server.Entities.Culture", b =>
                 {
                     b.Property<int>("Id")
@@ -135,6 +175,36 @@ namespace AspNetCoreSpa.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cultures");
+                });
+
+            modelBuilder.Entity("AspNetCoreSpa.Server.Entities.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("CategoryId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Meta");
+
+                    b.Property<DateTime?>("Modified");
+
+                    b.Property<DateTime>("PostedOn");
+
+                    b.Property<bool>("Published");
+
+                    b.Property<string>("ShortDescription");
+
+                    b.Property<string>("Title");
+
+                    b.Property<string>("UrlSlug");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("AspNetCoreSpa.Server.Entities.Resource", b =>
@@ -153,6 +223,20 @@ namespace AspNetCoreSpa.Migrations
                     b.HasIndex("CultureId");
 
                     b.ToTable("Resources");
+                });
+
+            modelBuilder.Entity("AspNetCoreSpa.Server.Entities.YoutubeFavorite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("UserEmail");
+
+                    b.Property<string>("VideoId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("YoutubeFavorites");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -368,6 +452,13 @@ namespace AspNetCoreSpa.Migrations
                         .WithOne("ProfilePhoto")
                         .HasForeignKey("AspNetCoreSpa.Server.Entities.ApplicationUserPhoto", "ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("AspNetCoreSpa.Server.Entities.Post", b =>
+                {
+                    b.HasOne("AspNetCoreSpa.Server.Entities.Category", "Category")
+                        .WithMany("Posts")
+                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("AspNetCoreSpa.Server.Entities.Resource", b =>

@@ -29,8 +29,21 @@ namespace AspNetCoreSpa.Server
             _context = context;
             CreateRoles(); // Add roles
             CreateUsers(); // Add users
+            CreateBooks(); // Add books
+            CreatePosts(); // Add posts
+            CreateFavoriteYoutubeItems();
             AddLocalisedData();
             AddOpenIdConnectOptions(serviceScope, CancellationToken.None).GetAwaiter().GetResult();
+        }
+
+        private void CreateFavoriteYoutubeItems()
+        {
+            if (!_context.YoutubeFavorites.Any())
+            {
+                _context.YoutubeFavorites.Add(new YoutubeFavorite());
+
+                _context.SaveChanges();
+            }
         }
 
         private void CreateRoles()
@@ -59,6 +72,37 @@ namespace AspNetCoreSpa.Server
                 _userManager.AddToRoleAsync(_userManager.FindByNameAsync("user@user.com").GetAwaiter().GetResult(), "User").Result.ToString();
             }
         }
+
+        private void CreateBooks()
+        {
+            if (!_context.Books.Any())
+            {
+                _context.Books.Add(new Book() {
+                    Title = "NewTitle",
+                    Author = "NewAuthor",
+                    Country = "Ukraine",
+                    Language = "UKR",
+                    Genre = "NewGenre",
+                    Publisher = "NewPublisher",
+                    Published = DateTime.Now,
+                });
+
+                _context.SaveChanges();
+            }
+        }
+        private void CreatePosts()
+        {
+            if (!_context.Posts.Any())
+            {
+                _context.Posts.Add(new Post() {
+                    Title = "NewTitle",
+                    Published = false,
+                });
+
+                _context.SaveChanges();
+            }
+        }
+
         private void AddLocalisedData()
         {
             if (!_context.Cultures.Any())
@@ -68,7 +112,7 @@ namespace AspNetCoreSpa.Server
                     {
                         Name = "en-US",
                         Resources = new List<Resource>() {
-                            new Resource { Key = "app_title", Value = "AspNetCoreSpa" },
+                            new Resource { Key = "app_title", Value = "BookPortal" },
                             new Resource { Key = "app_description", Value = "Single page application using aspnet core and angular" },
                             new Resource { Key = "app_nav_home", Value = "Home" },
                             new Resource { Key = "app_nav_chat", Value = "Chat" },
@@ -80,16 +124,16 @@ namespace AspNetCoreSpa.Server
                     },
                     new Culture
                     {
-                        Name = "fr-FR",
+                        Name = "ua-UA",
                         Resources = new List<Resource>() {
-                            new Resource { Key = "app_title", Value = "AspNetCoreSpa" },
-                            new Resource { Key = "app_description", Value = "Application d'une seule page utilisant aspnet core et angular" },
-                            new Resource { Key = "app_nav_home", Value = "Accueil" },
-                            new Resource { Key = "app_nav_chat", Value = "Bavarder" },
-                            new Resource { Key = "app_nav_examples", Value = "Exemples" },
-                            new Resource { Key = "app_nav_register", Value = "registre" },
-                            new Resource { Key = "app_nav_login", Value = "S'identifier" },
-                            new Resource { Key = "app_nav_logout", Value = "Connectez - Out" },
+                            new Resource { Key = "app_title", Value = "BookPortal" },
+                            new Resource { Key = "app_description", Value = "Single page application using aspnet core and angular" },
+                            new Resource { Key = "app_nav_home", Value = "Домівка" },
+                            new Resource { Key = "app_nav_chat", Value = "Чат" },
+                            new Resource { Key = "app_nav_examples", Value = "Приклади" },
+                            new Resource { Key = "app_nav_register", Value = "Реєстрація" },
+                            new Resource { Key = "app_nav_login", Value = "Ввійти" },
+                            new Resource { Key = "app_nav_logout", Value = "Вийти" },
                         }
                     }
                     );
