@@ -1,0 +1,27 @@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <td>Номер</td>
+        <td>Назва</td>
+        <td>Автор</td>
+        <td>Країна</td>
+        <td>Мова</td>
+        <td>Жанр</td>
+        <td>Видавництво</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let book of books; let i = index; trackBy: trackByFn">
+        <td>{{book.id}}</td>
+        <td>{{book.title}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.country}}</td>
+        <td>{{book.language}}</td>
+        <td>{{book.genre}}</td>
+        <td>{{book.publisher}}</td>
+        <td>
+            <button type="button" class="btn btn-primary" (click)="delete(book)">Видалити</button>
+        </td>
+    </tr>
+    </tbody>
+</table> 

@@ -1,0 +1,28 @@
+<div class="container">
+    <h3>
+        Запити озвучення
+    </h3>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <td>Номер</td>
+            <td>Ціна</td>
+            <td>Опис</td>
+            <td>Email</td>
+            <td>Номер книги</td>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let demand of demands; let i = index; trackBy: trackByFn">
+                <td>{{demand.id}}</td>
+                <td>{{demand.price.value}} uah</td>
+                <td>{{demand.description}}</td>
+                <td>{{demand.userEmail}}</td>
+                <td>{{demand.bookId}}</td>
+                <td>
+                    <button type="button" *ngIf="isLoggedIn()" class="btn btn-primary" (click)="apply(demand)">Долучитись</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -11,7 +11,7 @@ import { AccountService } from '../core/services/account.service';
 export class YoutubeServiceComponent implements OnChanges, OnInit {
   favoriteValue: boolean;
   @Input() searchValue = '';
-  @Input() youtubeId = 'Lt6PPiTTwbE';
+  @Input() youtubeId = '3i1doso6Bco';
   player: YT.Player;
   @Input() height = 500;
 

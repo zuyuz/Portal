@@ -55,6 +55,22 @@ namespace AspNetCoreSpa.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BookContracts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    BookId = table.Column<int>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
+                    UserDemandId = table.Column<int>(nullable: false),
+                    UserOfferId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookContracts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Books",
                 columns: table => new
                 {
@@ -74,6 +90,20 @@ namespace AspNetCoreSpa.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BookToUsers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    BookId = table.Column<int>(nullable: false),
+                    UserEmail = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BookToUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Category",
                 columns: table => new
                 {
@@ -89,6 +119,21 @@ namespace AspNetCoreSpa.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Contracts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IsAllowed = table.Column<bool>(nullable: false),
+                    UserEmail = table.Column<string>(nullable: true),
+                    UserOfferId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contracts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cultures",
                 columns: table => new
                 {
@@ -99,6 +144,21 @@ namespace AspNetCoreSpa.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cultures", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExternalResources",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    IsVerified = table.Column<bool>(nullable: false),
+                    Url = table.Column<string>(nullable: true),
+                    UserEmail = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExternalResources", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -134,6 +194,20 @@ namespace AspNetCoreSpa.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OpenIddictScopes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Price",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    PriceType = table.Column<int>(nullable: false),
+                    Value = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Price", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -350,6 +424,50 @@ namespace AspNetCoreSpa.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserDemands",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    BookId = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    PriceId = table.Column<int>(nullable: true),
+                    UserEmail = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserDemands", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserDemands_Price_PriceId",
+                        column: x => x.PriceId,
+                        principalTable: "Price",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserOffers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    BookId = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    PriceId = table.Column<int>(nullable: true),
+                    UserEmail = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserOffers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserOffers_Price_PriceId",
+                        column: x => x.PriceId,
+                        principalTable: "Price",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpenIddictTokens",
                 columns: table => new
                 {
@@ -462,6 +580,16 @@ namespace AspNetCoreSpa.Migrations
                 name: "IX_Resources_CultureId",
                 table: "Resources",
                 column: "CultureId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserDemands_PriceId",
+                table: "UserDemands",
+                column: "PriceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserOffers_PriceId",
+                table: "UserOffers",
+                column: "PriceId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -485,7 +613,19 @@ namespace AspNetCoreSpa.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "BookContracts");
+
+            migrationBuilder.DropTable(
                 name: "Books");
+
+            migrationBuilder.DropTable(
+                name: "BookToUsers");
+
+            migrationBuilder.DropTable(
+                name: "Contracts");
+
+            migrationBuilder.DropTable(
+                name: "ExternalResources");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
@@ -498,6 +638,12 @@ namespace AspNetCoreSpa.Migrations
 
             migrationBuilder.DropTable(
                 name: "Resources");
+
+            migrationBuilder.DropTable(
+                name: "UserDemands");
+
+            migrationBuilder.DropTable(
+                name: "UserOffers");
 
             migrationBuilder.DropTable(
                 name: "YoutubeFavorites");
@@ -516,6 +662,9 @@ namespace AspNetCoreSpa.Migrations
 
             migrationBuilder.DropTable(
                 name: "Cultures");
+
+            migrationBuilder.DropTable(
+                name: "Price");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictApplications");

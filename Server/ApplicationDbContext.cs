@@ -15,6 +15,13 @@ namespace AspNetCoreSpa.Server
         public DbSet<Book> Books { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<YoutubeFavorite> YoutubeFavorites { get; set; }
+        public DbSet<ExternalResource> ExternalResources { get; set; }
+        public DbSet<UserDemand> UserDemands { get; set; }
+        public DbSet<UserOffer> UserOffers { get; set; }
+        public DbSet<BookContract> BookContracts { get; set; }
+        public DbSet<BookToUser> BookToUsers { get; set; }
+        public DbSet<Contract> Contracts { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
 

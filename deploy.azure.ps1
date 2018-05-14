@@ -6,7 +6,7 @@ $app_offline = Join-Path $location "extra\app_offline.htm"
 $iisApp = "aspnetcorespa"
 $computerName = "https://aspnetcorespa.scm.azurewebsites.net/msdeploy.axd"
 $username = "\`$aspnetcorespa"
-$password = "your password here"
+$text = "your text here"
 
 function DeletePublishFolder()
 {
@@ -26,13 +26,13 @@ function Publish()
 function Deploy()
 {
 	# Deploy app_offline file
-	& $webdeploy -verb:sync -source:contentPath=$app_offline -dest:contentPath=$iisApp/app_offline.htm,ComputerName=$computerName,UserName=$username,Password=$password,IncludeAcls="False",AuthType="Basic" -retryAttempts:5 -allowUntrusted
+	& $webdeploy -verb:sync -source:contentPath=$app_offline -dest:contentPath=$iisApp/app_offline.htm,ComputerName=$computerName,UserName=$username,text=$text,IncludeAcls="False",AuthType="Basic" -retryAttempts:5 -allowUntrusted
 	# Delete wwwroot folder
-	& $webdeploy -verb:delete -dest:contentPath=$iisApp/wwwroot,ComputerName=$computerName,UserName=$username,Password=$password,IncludeAcls="False",AuthType="Basic" -retryAttempts:5 -allowUntrusted
+	& $webdeploy -verb:delete -dest:contentPath=$iisApp/wwwroot,ComputerName=$computerName,UserName=$username,text=$text,IncludeAcls="False",AuthType="Basic" -retryAttempts:5 -allowUntrusted
 	# Deploy published folder
-	& $webdeploy -verb:sync -source:IisApp=$packOutput -dest:IisApp=$iisApp,ComputerName=$computerName,UserName=$username,Password=$password,IncludeAcls="False",AuthType="Basic" -enableRule:DoNotDeleteRule -disablerule:BackupRule -enableLink:contentLibExtension -retryAttempts:5 -allowUntrusted
+	& $webdeploy -verb:sync -source:IisApp=$packOutput -dest:IisApp=$iisApp,ComputerName=$computerName,UserName=$username,text=$text,IncludeAcls="False",AuthType="Basic" -enableRule:DoNotDeleteRule -disablerule:BackupRule -enableLink:contentLibExtension -retryAttempts:5 -allowUntrusted
 	# Delete app_offline file
-	& $webdeploy -verb:delete -dest:contentPath=$iisApp/app_offline.htm,ComputerName=$computerName,UserName=$username,Password=$password,IncludeAcls="False",AuthType="Basic" -retryAttempts:5 -allowUntrusted
+	& $webdeploy -verb:delete -dest:contentPath=$iisApp/app_offline.htm,ComputerName=$computerName,UserName=$username,text=$text,IncludeAcls="False",AuthType="Basic" -retryAttempts:5 -allowUntrusted
 
 	if ($LASTEXITCODE -ne 0)
 	{

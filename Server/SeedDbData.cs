@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AspNetCoreSpa.Server.Entities;
+using AspNetCoreSpa_master.Server.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,9 +32,75 @@ namespace AspNetCoreSpa.Server
             CreateUsers(); // Add users
             CreateBooks(); // Add books
             CreatePosts(); // Add posts
+            CreateUserOffers();
+            CreateUserDemands();
+            CreateBookContracts();
+            CreateBookToUsers();
+            CreateContracts();
+            CreateExternalResources();
             CreateFavoriteYoutubeItems();
             AddLocalisedData();
             AddOpenIdConnectOptions(serviceScope, CancellationToken.None).GetAwaiter().GetResult();
+        }
+
+        private void CreateContracts()
+        {
+            if (!_context.Contracts.Any())
+            {
+                _context.Contracts.Add(new Contract());
+
+                _context.SaveChanges();
+            }
+        }
+
+        private void CreateBookToUsers()
+        {
+            if (!_context.BookToUsers.Any())
+            {
+                _context.BookToUsers.Add(new BookToUser());
+
+                _context.SaveChanges();
+            }
+        }
+
+        private void CreateBookContracts()
+        {
+            if (!_context.BookContracts.Any())
+            {
+                _context.BookContracts.Add(new BookContract());
+
+                _context.SaveChanges();
+            }
+        }
+
+        private void CreateUserDemands()
+        {
+            if (!_context.UserDemands.Any())
+            {
+                _context.UserDemands.Add(new UserDemand());
+
+                _context.SaveChanges();
+            }
+        }
+
+        private void CreateUserOffers()
+        {
+            if (!_context.UserOffers.Any())
+            {
+                _context.UserOffers.Add(new UserOffer());
+
+                _context.SaveChanges();
+            }
+        }
+
+        private void CreateExternalResources()
+        {
+            if (!_context.ExternalResources.Any())
+            {
+                _context.ExternalResources.Add(new ExternalResource());
+
+                _context.SaveChanges();
+            }
         }
 
         private void CreateFavoriteYoutubeItems()
@@ -78,12 +145,66 @@ namespace AspNetCoreSpa.Server
             if (!_context.Books.Any())
             {
                 _context.Books.Add(new Book() {
-                    Title = "NewTitle",
-                    Author = "NewAuthor",
-                    Country = "Ukraine",
-                    Language = "UKR",
-                    Genre = "NewGenre",
-                    Publisher = "NewPublisher",
+                    Title = "Спустошення",
+                    Author = "Любко Дереш",
+                    Country = "Україна",
+                    Language = "Українська",
+                    Genre = "Роман",
+                    Publisher = "Просвіта",
+                    Published = DateTime.Now,
+                });
+                _context.Books.Add(new Book() {
+                    Title = "Інтернат",
+                    Author = "Сергій Жадан",
+                    Country = "Україна",
+                    Language = "Українська",
+                    Genre = "Роман",
+                    Publisher = "Просвіта",
+                    Published = DateTime.Now,
+                });
+                _context.Books.Add(new Book() {
+                    Title = "Довгі часи",
+                    Author = "Володимир Рафєєнко",
+                    Country = "Україна",
+                    Language = "Українська",
+                    Genre = "Роман",
+                    Publisher = "Старий Лев",
+                    Published = DateTime.Now,
+                });
+                _context.Books.Add(new Book() {
+                    Title = "Троща",
+                    Author = "Василь Шкляр",
+                    Country = "Україна",
+                    Language = "Українська",
+                    Genre = "Роман",
+                    Publisher = "Абабагамага",
+                    Published = DateTime.Now,
+                });
+                _context.Books.Add(new Book() {
+                    Title = "Охайні прописи ерцгерцога Вільгельма",
+                    Author = "Наталка Сняданко",
+                    Country = "Україна",
+                    Language = "Українська",
+                    Genre = "Роман",
+                    Publisher = "Старий Лев",
+                    Published = DateTime.Now,
+                });
+                _context.Books.Add(new Book() {
+                    Title = "Лютеція",
+                    Author = "Юрій Винничук",
+                    Country = "Україна",
+                    Language = "Українська",
+                    Genre = "Роман",
+                    Publisher = "Просвіта",
+                    Published = DateTime.Now,
+                });
+                _context.Books.Add(new Book() {
+                    Title = "Харків 1938",
+                    Author = "Олександр Ірванець",
+                    Country = "Україна",
+                    Language = "Українська",
+                    Genre = "Роман",
+                    Publisher = "Просвіта",
                     Published = DateTime.Now,
                 });
 

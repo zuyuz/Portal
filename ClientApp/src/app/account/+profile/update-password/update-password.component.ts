@@ -15,16 +15,16 @@ export class UpdatePasswordComponent implements OnInit {
   public controls: Array<ControlBase<string>> = [
     new ControlTextbox({
       key: 'oldPassword',
-      label: 'Current password',
-      placeholder: 'Current password',
+      label: 'Поточний пароль',
+      placeholder: 'Поточний пароль',
       value: '',
       type: 'password',
       order: 1
     }),
     new ControlTextbox({
       key: 'newPassword',
-      label: 'New password',
-      placeholder: 'New password',
+      label: 'Новий пароль',
+      placeholder: 'Новий пароль',
       value: '',
       type: 'password',
       required: true,
@@ -32,8 +32,8 @@ export class UpdatePasswordComponent implements OnInit {
     }),
     new ControlTextbox({
       key: 'confirmPassword',
-      label: 'Verify password',
-      placeholder: 'Verify password',
+      label: 'Перевірка паролю',
+      placeholder: 'Перевірка паролю',
       value: '',
       type: 'password',
       required: true,

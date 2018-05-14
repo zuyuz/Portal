@@ -3,24 +3,23 @@
     <div class="col-md-3">
       <input type="text" class="form-control" aria-describedby="basic-addon3" (input)="onSearchChange($event.target.value)">
       <br>
-      <button type="button" class="btn btn-primary" value="Upload data" (click)="onUploadData()">Upload Data</button>
+      <button type="button" class="btn btn-primary" value="Upload data" (click)="onUploadData()">Пошук</button>
       <br>
       <div class="card card-block" *ngFor="let video of videos">
         <button type="button" class="btn btn-secondary" href="#" role="button" (click)="onVideoLoad(video)">{{video.name}}</button>
       </div>
     </div>
     <div id="mydiv" class="col-md-8">
+      <youtube-player [height]="height" [width]="width" videoId={{youtubeId}} (ready)="savePlayer($event)" (change)="onStateChange($event)">
+      </youtube-player>
       <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 
       <label for="id-of-input" class="custom-checkbox" *ngIf="isLoggedIn()">
         <input type="checkbox" id="id-of-input" [ngModel]="favoriteValue" (input)="onFavoriteSelected($event)"/>
         <i class="glyphicon glyphicon-star-empty"></i>
         <i class="glyphicon glyphicon-star"></i>
-        <span>Favorite</span>
+        <span>Додати до улюблених</span>
       </label>
-
-      <youtube-player [height]="height" [width]="width" videoId={{youtubeId}} (ready)="savePlayer($event)" (change)="onStateChange($event)">
-      </youtube-player>
     </div>
   </div>
 </div>

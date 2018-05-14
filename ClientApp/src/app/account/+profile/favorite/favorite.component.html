@@ -1,5 +1,5 @@
 <div class="card card-block" *ngFor="let favorite of userFavorites">
     <button type="button" class="btn btn-primary" (click)="onFavoritePressed(favorite)">{{favorite.videoId}}</button>
-    <button type="button" class="btn btn-secondary" (click)="onRemovedPressed(favorite)">Remove</button>
+    <button type="button" class="btn btn-secondary" (click)="onRemovedPressed(favorite)">Видалити</button>
     <br>
 </div>

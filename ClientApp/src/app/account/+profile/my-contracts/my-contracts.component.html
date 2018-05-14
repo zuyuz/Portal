@@ -1,0 +1,25 @@
+<div class="container">
+    <h3>
+        Підписання контракту
+    </h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>Номер</td>
+                <td>Email волонтера</td>
+                <td>Узгоджено</td>
+                <td>Опис</td>
+                <td>Номер книги</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let contract of contracts; let i = index; trackBy: trackByFn" (click)="selectContract(contract)">
+                <td>{{contract.id}}</td>
+                <td>{{contract.userEmail}}</td>
+                <td>{{contract.isAllowed}}</td>
+                <td>{{contract.userDemand.description}}</td>
+                <td>{{contract.userDemand.bookId}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

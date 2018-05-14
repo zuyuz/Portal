@@ -15,8 +15,8 @@ export class UserInfoComponent implements OnInit {
   public controls: Array<ControlBase<string>> = [
     new ControlTextbox({
       key: 'firstName',
-      label: 'First name',
-      placeholder: 'Firstname',
+      label: 'Ім\'я',
+      placeholder: 'Ім\'я',
       value: '',
       type: 'textbox',
       required: true,
@@ -24,8 +24,8 @@ export class UserInfoComponent implements OnInit {
     }),
     new ControlTextbox({
       key: 'lastName',
-      label: 'Last name',
-      placeholder: 'Lastname',
+      label: 'Прізвище',
+      placeholder: 'Прізвище',
       value: '',
       type: 'textbox',
       required: true,
@@ -33,8 +33,8 @@ export class UserInfoComponent implements OnInit {
     }),
     new ControlTextbox({
       key: 'phoneNumber',
-      label: 'Phone number',
-      placeholder: 'Phone number',
+      label: 'Номер телефону',
+      placeholder: 'Номер телефону',
       value: '',
       type: 'textbox',
       required: false,

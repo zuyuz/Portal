@@ -1,0 +1,26 @@
+<div class="container">
+    <h3>
+        Мої пропозиції
+    </h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>Номер</td>
+                <td>Ціна</td>
+                <td>Опис</td>
+                <td>Номер книги</td>
+            </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let offer of offers; let i = index; trackBy: trackByFn">
+            <td>{{offer.id}}</td>
+            <td>{{offer.price.value}} uah</td>
+            <td>{{offer.description}}</td>
+            <td>{{offer.bookId}}</td>
+            <td>
+                <button type="button" class="btn btn-primary" (click)="delete(offer)">Видалити</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

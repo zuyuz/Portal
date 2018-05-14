@@ -16,18 +16,27 @@
                 <a class="nav-link" routerLinkActive="active" routerLink="">{{'app_nav_home' | translate}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLinkActive="active" routerLink="YoutubeService">Youtube service</a>
+                <a class="nav-link" routerLinkActive="active" routerLink="YoutubeService">Youtube</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLinkActive="active" routerLink="chat">{{'app_nav_chat' | translate}}</a>
+                <a class="nav-link" routerLinkActive="active" routerLink="Books">Всі книги</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active" routerLink="BookStores">Книжкові магазини</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active" routerLink="UserOffers">Пропозиції озвучення</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLinkActive="active" routerLink="UserDemands">Прохання на озвучення</a>
             </li>
             <!-- <li class="nav-item">
-                <a class="nav-link" routerLinkActive="active" routerLink="examples">{{'app_nav_examples' | translate}}</a>
-            </li> -->
+        <a class="nav-link" routerLinkActive="active" routerLink="examples">{{'app_nav_examples' | translate}}</a>
+    </li> -->
             <li class="nav-item" *ngFor="let culture of cultures">
                 <form action="SetLanguage" method="POST" ngNoForm class="nav-link">
                     <input id="{{culture.value}}" name="culture" type="submit" [value]="culture.value" type="image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAgFAAEACAgAOw=="
-                        class="flag flag-{{culture.value.split('-')[1].toLowerCase()}} rounded-circle" alt="culture" />
+                           class="flag flag-{{culture.value.split('-')[1].toLowerCase()}} rounded-circle" alt="culture" />
                 </form>
             </li>
         </ul>

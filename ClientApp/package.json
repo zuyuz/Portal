@@ -53,6 +53,7 @@
     "ngx-youtube-player": "^0.1.0",
     "preboot": "6.0.0-beta.3",
     "rxjs": "5.5.6",
+    "videogular2": "^6.1.1",
     "zone.js": "0.8.20"
   },
   "devDependencies": {
@@ -61,6 +62,7 @@
     "@angular/language-service": "5.2.7",
     "@angular/service-worker": "5.2.7",
     "@compodoc/compodoc": "1.0.8",
+    "@types/core-js": "^0.9.46",
     "@types/jasmine": "2.8.6",
     "@types/jasminewd2": "2.0.3",
     "@types/node": "9.4.6",
